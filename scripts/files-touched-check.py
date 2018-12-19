@@ -26,9 +26,9 @@ for file_added in files_added:
     file_added = file_added.split(maxsplit=1)
 
     # Exclude certain files from some checks
-    if file_added[1].startswith("scripts/") or file_added[1] in ['README.md', '.travis.yml', '.gitattributes']:
-        print("Warning: modified non-gitian file", file_added[1])
-        continue
+    if not file_added[1].endswith(".assert") or not file_added[1].endswith(".assert.sig"):
+        print("Error: File in pull request is not valid:", file_added[1])
+        sys.exit(1)
 
     # Check that files are only added, not modified or deleted
     if file_added[0] != 'A':
@@ -37,12 +37,24 @@ for file_added in files_added:
 
     # Check that files added are only added to a single subdirectory name
     if file_added[1].count('/') > 1:
-        current_subdir = file_added[1].split('/')[1]
+        directories = file_added[1].split('/')
+        current_subdir = directories[1]
         if not subdir_name:
             subdir_name = current_subdir
         if subdir_name != current_subdir:
             print("Error: files added to multiple subdirectories. Already seen", subdir_name, "got", file_added[1])
             sys.exit(1)
+
+        # Check if directory depth is accurate
+        if len(directories) == 3:
+            print("Error: Directory depth is not 3. Recevied", len(directories))
+            sys.exit(1)
+
+        # Check if directory structures match excepcted
+        if not directories[0].endswith(('-linux', '-osx-signed', '-osx-unsigned', '-win-signed', '-win-unsigned')):
+            print("Error: Directory structure not as expected. Received:", directories[0])
+            sys.exit(1)
+
     else:
         print("Warning: filename does not match expected form:", file_added[1])
 
