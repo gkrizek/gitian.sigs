@@ -36,8 +36,10 @@ for file_added in files_added:
         sys.exit(1)
 
     # Check that files added are only added to a single subdirectory name
+    print(file_added)
     if file_added[1].count('/') > 1:
         directories = file_added[1].split('/')
+        print(directories)
         current_subdir = directories[1]
         if not subdir_name:
             subdir_name = current_subdir
