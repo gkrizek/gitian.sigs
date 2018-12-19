@@ -37,7 +37,7 @@ for file_added in files_added:
 
     # Check that files added are only added to a single subdirectory name
     print(file_added)
-    if file_added[1].count('/') > 1:
+    if file_added[1].count('/') >= 1:
         directories = file_added[1].split('/')
         print(directories)
         current_subdir = directories[1]
