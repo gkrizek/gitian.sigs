@@ -56,6 +56,7 @@ for file_added in files_added:
             sys.exit(1)
 
     else:
-        print("Warning: filename does not match expected form:", file_added[1])
-
+        print("Error: filename does not match expected form:", file_added[1])
+        sys.exit(1)
+        
 sys.exit(0)
