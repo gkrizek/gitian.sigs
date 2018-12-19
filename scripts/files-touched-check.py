@@ -49,7 +49,7 @@ for file_added in files_added:
 
         # Check if directory depth is accurate
         if len(directories) != 3:
-            print("Error: Directory depth is not 3. Recevied", len(directories))
+            print("Error: Directory depth is not 3.")
             sys.exit(1)
 
         # Check if directory structures match excepcted
