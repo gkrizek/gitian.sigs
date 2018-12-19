@@ -46,7 +46,7 @@ for file_added in files_added:
             sys.exit(1)
 
         # Check if directory depth is accurate
-        if len(directories) == 3:
+        if len(directories) != 3:
             print("Error: Directory depth is not 3. Recevied", len(directories))
             sys.exit(1)
 
