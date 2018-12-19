@@ -26,7 +26,7 @@ for file_added in files_added:
     file_added = file_added.split(maxsplit=1)
 
     # Exclude certain files from some checks
-    if not file_added[1].endswith(".assert") or not file_added[1].endswith(".assert.sig"):
+    if not file_added[1].endswith(".assert") and not file_added[1].endswith(".assert.sig"):
         print("Error: File in pull request is not valid:", file_added[1])
         sys.exit(1)
 
